@@ -480,17 +480,17 @@
         <button class="btn-task" id="task1Btn" onclick="completeTask('task1', 'https://twitter.com/LottoChainXyz/status/YOUR_TWEET_ID')">Engage on Twitter</button>
       </div>
       <!-- Discord Engage -->
-      <div class="task" id="task1">
+      <div class="task" id="task2">
         <b>3. Join Discord</b><br><br>
         <button class="btn-task" id="task1Btn" onclick="completeTask('task1', 'https://twitter.com/LottoChainXyz/status/YOUR_TWEET_ID')">Engage on Twitter</button>
       </div>
       <!-- Telegram -->
-      <div class="task" id="task2">
+      <div class="task" id="task3">
         <b>4. Join Telegram Channel</b><br><br>
         <button class="btn-task" id="task2Btn" onclick="completeTask('task2', 'https://t.me/LottoChainXyz')">Join Telegram</button>
       </div>
       <!-- Facebook -->
-      <div class="task" id="task3">
+      <div class="task" id="task4">
         <b>5. Like Facebook Page</b><br><br>
         <button class="btn-task" id="task3Btn" onclick="completeTask('task3', 'https://facebook.com/LottoChainXyz')">Like Facebook</button>
       </div>
@@ -672,13 +672,13 @@
     }
 
     function checkAllTasks() {
-      const tasks = ['task0', 'task1', 'task2', 'task3'];
+      const tasks = ['task0', 'task1', 'task2', 'task3', 'task4'];
       const allCompleted = tasks.every(taskId => localStorage.getItem(taskId) === 'completed');
       document.getElementById('continueBtn').disabled = !allCompleted;
     }
 
     function finishTasks() {
-      const tasks = ['task0', 'task1', 'task2', 'task3'];
+      const tasks = ['task0', 'task1', 'task2', 'task3', 'task4'];
       tasks.forEach(taskId => localStorage.setItem(taskId, 'completed'));
       localStorage.setItem('tasksCompleted', 'true');
       localStorage.setItem('tasksCompletedTime', Date.now().toString());
@@ -695,7 +695,7 @@
         const timeSinceCompletion = Date.now() - parseInt(completedTime);
         if (timeSinceCompletion >= twentyFourHours) {
           // Reset tasks for the new day
-          const tasks = ['task0', 'task1', 'task2', 'task3'];
+          const tasks = ['task0', 'task1', 'task2', 'task3', 'task4'];
           tasks.forEach(taskId => localStorage.removeItem(taskId));
           localStorage.setItem('tasksCompleted', 'false');
           return true;
@@ -710,7 +710,7 @@
         document.getElementById('taskModal').style.display = 'flex';
         document.getElementById('mainContent').style.display = 'none';
         // Restore button states
-        const tasks = ['task0', 'task1', 'task2', 'task3'];
+        const tasks = ['task0', 'task1', 'task2', 'task3', 'task4'];
         tasks.forEach(taskId => {
           if (localStorage.getItem(taskId) === 'completed') {
             const button = document.getElementById(`${taskId}Btn`);
