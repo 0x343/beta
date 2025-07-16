@@ -1263,38 +1263,31 @@ const loadRefereeList = async () => {
   statusEl.innerHTML = "<center><small>Processing check-in...</small></center>";
 
   try {
-    console.log("Initiating check-in transaction");
-    console.log("User Account:", userAccount);
-    console.log("Contract Address:", contract.options.address);
+    // Simulate call to detect early reverts
+    try {
+      await contract.methods.checkIn().call({ from: userAccount });
+    } catch (simError) {
+      console.warn("Simulated call failed:", simError.message);
+      statusEl.innerHTML = `<center><small style="color:red;">Check-in failed: ${simError.message}</small></center>`;
+      return;
+    }
 
     let tx;
-
     try {
-      // Coba ambil EIP-1559 fees
       const priorityFee = await web3.eth.getMaxPriorityFeePerGas();
       const latestBlock = await web3.eth.getBlock('pending');
       const baseFee = latestBlock.baseFeePerGas;
       const maxFeePerGas = web3.utils.toBN(baseFee).add(web3.utils.toBN(priorityFee).muln(2));
 
-      console.log("Gas Fee Details:", {
-        baseFee: web3.utils.fromWei(baseFee, 'gwei'),
-        priorityFee: web3.utils.fromWei(priorityFee, 'gwei'),
-        maxFeePerGas: web3.utils.fromWei(maxFeePerGas, 'gwei')
-      });
-
-      // Kirim transaksi dengan EIP-1559
       tx = await contract.methods.checkIn().send({
         from: userAccount,
         maxFeePerGas,
         maxPriorityFeePerGas: priorityFee,
         gas: 200000
       });
-    } catch (gasError) {
-      console.warn("EIP-1559 failed or unsupported, retrying with legacy gas...");
-      
-      // Fallback: Kirim transaksi dengan gas legacy (gasPrice)
+    } catch (eip1559Error) {
+      console.warn("Falling back to legacy gas method...");
       const gasPrice = await web3.eth.getGasPrice();
-
       tx = await contract.methods.checkIn().send({
         from: userAccount,
         gasPrice,
@@ -1302,16 +1295,11 @@ const loadRefereeList = async () => {
       });
     }
 
-    console.log("Check-in transaction sent, hash:", tx.transactionHash);
-    statusEl.innerHTML = "<center><small style='color:#aaffaa;'>Transaction sent. Waiting for confirmation...</small></center>";
-
-    // Polling untuk receipt
     const maxAttempts = 10;
     let attempt = 0;
     let receipt = null;
 
     while (!receipt && attempt < maxAttempts) {
-      console.log(`Polling for receipt (attempt ${attempt + 1}/${maxAttempts})`);
       receipt = await web3.eth.getTransactionReceipt(tx.transactionHash);
       if (!receipt) {
         await new Promise(resolve => setTimeout(resolve, 2000));
@@ -1321,19 +1309,13 @@ const loadRefereeList = async () => {
 
     if (!receipt) throw new Error("Transaction not confirmed after multiple attempts");
 
-    console.log("Transaction confirmed:", receipt);
     statusEl.innerHTML = "<center><small style='color:#00ff14;'>Faucet Check-in successful! You earned 1 Point!</small></center>";
-
     await new Promise(resolve => setTimeout(resolve, 3000));
     await loadCriticalData();
     await loadCheckInHistory();
-    console.log("UI updated after check-in");
-    
   } catch (error) {
-    console.error("Error checking in:", error.message, error);
-
     let errorMessage = "Failed to check in faucet. Please try again.";
-    if (error.message.includes("already checked in faucet")) {
+    if (error.message.includes("Already checked in faucet")) {
       errorMessage = "You have already checked in faucet today.";
     } else if (error.message.includes("Transaction not confirmed")) {
       errorMessage = "Transaction timed out. Please check Basescan and try again.";
