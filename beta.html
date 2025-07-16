@@ -175,7 +175,6 @@
       text-align: center;
     }
 
-     /* Pagination Container */
 .pagination {
   display: flex;
   justify-content: center;
@@ -184,7 +183,6 @@
   flex-wrap: wrap;
 }
 
-    /* Tombol Pagination */
 .pagination button {
   background-color: #f2f2f2;
   border: 1px solid #333333;
@@ -197,7 +195,6 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Hover effect */
 .pagination button:hover {
   background: linear-gradient(90deg, #03a9f4, #f441a5);
   color: white;
@@ -206,7 +203,6 @@
   border-color: transparent;
 }
 
-/* Tombol aktif (halaman sekarang) */
 .pagination button.active {
   background: linear-gradient(135deg, #9333ea, #7e22ce);
   color: white;
@@ -215,7 +211,6 @@
   box-shadow: 0 4px 8px rgba(147, 51, 234, 0.5);
 }
 
-/* Tombol nonaktif (Prev/Next saat tidak bisa diklik) */
 .pagination button:disabled {
   background-color: #eee;
   color: #aaa;
@@ -248,7 +243,6 @@
     border: 1px solid white;
         }
 
-        /* Animasi bola */
         @keyframes bounce {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-10px); }
@@ -311,10 +305,9 @@
     width: 100%;
     max-width: 1240px;
     z-index: 1000;
-    height: 60px; /* Tambahkan tinggi navbar agar lebih jelas */
+    height: 60px;
 }
 
-/* Logo */
 .logo {
     display: flex;
     align-items: center;
@@ -325,7 +318,6 @@
     margin-right: 10px;
 }
 
-/* Menu Links */
 .nav-links {
     display: flex;
     gap: 20px;
@@ -341,7 +333,6 @@
     color: #00ff66;
 }
 
-/* Hamburger Button */
 .hamburger {
     display: none;
     font-size: 24px;
@@ -349,7 +340,6 @@
     transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
 }
 
-/* Efek Hover Hamburger */
 .hamburger:hover {
     transform: rotate(90deg) scale(1.2);
     color: #00ff66;
@@ -376,7 +366,6 @@
     }
 }
 
-/* Animasi Slide-in Menu */
 @keyframes slideIn {
     from {
         opacity: 0;
@@ -442,7 +431,6 @@
         </div>
 <small><h4 id="current-date-time"></h4></small><br>
 
-    <!-- Wallet Connection -->
     <div class="section">
       <center><button id="walletButton">Connect Wallet</button></center>
       <small><p id="accountInfo" class="info-text"></p>
@@ -502,7 +490,6 @@
   </div>
     </div>
   
-    <!-- Check-In -->
     <div class="section hidden">
       <h2>Daily Faucet Claim</h2>
       <h5>Faucet starts every <span style="color: #ffb833;">00:00 UTC</span></h5>
@@ -514,7 +501,6 @@
 <div class="pagination" id="checkInPagination"></div>
     </div>
 
-    <!-- Betting Section -->
 <div class="section hidden">
   <h2>Place a Bet</h2>
   <h5>Place a Bet starts every <span style="color: #ffb833;">00:00 UTC</span></h5>
@@ -544,7 +530,6 @@
   <div id="betStatus" style="margin-top: 15px; text-align: center;"></div>
 </div>
     
-    <!-- User Bet History -->
 <div class="section hidden">
   <h2>Your Ticket History</h2>
   <div id="userBetHistoryContainer" style="max-height: 400px; overflow-y: auto;">
@@ -552,7 +537,6 @@
   </div>
 </div>
 
-    <!-- Global Bet History -->
     <div class="section hidden">
       <h2>Global Ticket History</h2>
       <div id="globalBetHistoryContainer" style="max-height: 400px; overflow-y: auto;">
@@ -560,7 +544,6 @@
       </div>
     </div>
 
-    <!-- Referral -->
     <div class="section hidden">
       <h2>Referral</h2>
       <div class="input-group">
@@ -605,11 +588,11 @@
 
         <footer>
     <div class="social-icons">
-        <a href="https://twitter.com/" target="_blank"><i class="fa-brands fa-twitter"></i></a>
-        <a href="https://t.me/" target="_blank"><i class="fa-brands fa-telegram"></i></a>
-        <a href="" target="_blank"><i class="fa-brands fa-discord"></i></a>
-        <a href="" target="_blank"><i class="fa-brands fa-facebook"></i></a>
-        <a href="" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+        <a href="https://x.com/FaylottoXyz" target="_blank"><i class="fa-brands fa-x"></i></a>
+        <a href="https://t.me/FaylottoXyz" target="_blank"><i class="fa-brands fa-telegram"></i></a>
+        <a href="https://t.me/Faylotto" target="_blank"><i class="fa-brands fa-telegram"></i></a>
+        <a href="https://discord.gg/6uMYTdCZwJ" target="_blank"><i class="fa-brands fa-discord"></i></a>
+        <a href="https://facebook.com/Faylotto" target="_blank"><i class="fa-brands fa-facebook"></i></a>
     </div>
     <p>
   © Powered By Faylotto.
@@ -625,7 +608,6 @@
   </div>
 
   <script>
-    // Konfigurasi Web3 dan kontrak
     const contractAddress = "0xA9cedF1fc66a841a80Ad7e4A2a2D138378FE5cB8";
     const contractABI = [{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"user","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"timestamp","type":"uint256"}],"name":"CheckIn","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"user","type":"address"},{"indexed":false,"internalType":"uint256","name":"dayUTC","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"timestamp","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"reward","type":"uint256"}],"name":"CheckInLogCreated","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"user","type":"address"},{"indexed":false,"internalType":"string","name":"number","type":"string"},{"indexed":false,"internalType":"uint256","name":"cost","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"reward","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"timestamp","type":"uint256"}],"name":"PlaceBet","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"user","type":"address"},{"indexed":false,"internalType":"string","name":"referralId","type":"string"}],"name":"ReferralIdSet","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"referrer","type":"address"},{"indexed":true,"internalType":"address","name":"referee","type":"address"},{"indexed":false,"internalType":"uint256","name":"reward","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"timestamp","type":"uint256"}],"name":"ReferralReward","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"referee","type":"address"},{"indexed":true,"internalType":"address","name":"referrer","type":"address"},{"indexed":false,"internalType":"string","name":"referralId","type":"string"}],"name":"Referred","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"amount","type":"uint256"}],"name":"TokenMinted","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"inputs":[],"name":"BET_COST","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"BET_REWARD","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"POINTS_PER_CHECKIN","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"REFERRAL_REWARD","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"_balances","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"_lastBetDayUTC","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"_lastCheckIn","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"betHistory","outputs":[{"internalType":"address","name":"user","type":"address"},{"internalType":"string","name":"number","type":"string"},{"internalType":"uint256","name":"cost","type":"uint256"},{"internalType":"uint256","name":"reward","type":"uint256"},{"internalType":"uint256","name":"timestamp","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"checkIn","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"},{"internalType":"uint256","name":"","type":"uint256"}],"name":"checkInHistory","outputs":[{"internalType":"address","name":"user","type":"address"},{"internalType":"uint256","name":"dayUTC","type":"uint256"},{"internalType":"uint256","name":"timestamp","type":"uint256"},{"internalType":"uint256","name":"reward","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"string","name":"a","type":"string"},{"internalType":"string","name":"b","type":"string"}],"name":"compareStrings","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"pure","type":"function"},{"inputs":[],"name":"decimals","outputs":[{"internalType":"uint8","name":"","type":"uint8"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"index","type":"uint256"}],"name":"getBet","outputs":[{"components":[{"internalType":"address","name":"user","type":"address"},{"internalType":"string","name":"number","type":"string"},{"internalType":"uint256","name":"cost","type":"uint256"},{"internalType":"uint256","name":"reward","type":"uint256"},{"internalType":"uint256","name":"timestamp","type":"uint256"}],"internalType":"struct CheckInPoint.Bet","name":"","type":"tuple"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getBetHistoryLength","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"user","type":"address"}],"name":"getCheckInCount","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"user","type":"address"},{"internalType":"uint256","name":"index","type":"uint256"}],"name":"getCheckInLog","outputs":[{"components":[{"internalType":"address","name":"user","type":"address"},{"internalType":"uint256","name":"dayUTC","type":"uint256"},{"internalType":"uint256","name":"timestamp","type":"uint256"},{"internalType":"uint256","name":"reward","type":"uint256"}],"internalType":"struct CheckInPoint.CheckInLog","name":"","type":"tuple"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"referrer","type":"address"}],"name":"getRefereeCount","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"referrer","type":"address"}],"name":"getReferees","outputs":[{"internalType":"address[]","name":"","type":"address[]"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"user","type":"address"},{"internalType":"uint256","name":"index","type":"uint256"}],"name":"getUserBet","outputs":[{"components":[{"internalType":"address","name":"user","type":"address"},{"internalType":"string","name":"number","type":"string"},{"internalType":"uint256","name":"cost","type":"uint256"},{"internalType":"uint256","name":"reward","type":"uint256"},{"internalType":"uint256","name":"timestamp","type":"uint256"}],"internalType":"struct CheckInPoint.Bet","name":"","type":"tuple"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"user","type":"address"}],"name":"getUserBetCount","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"string","name":"_number","type":"string"},{"internalType":"uint256","name":"_times","type":"uint256"},{"internalType":"uint256","name":"_payoutAmount","type":"uint256"}],"name":"placeBet","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"},{"internalType":"uint256","name":"","type":"uint256"}],"name":"referees","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"referralIdOf","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"referralInfo","outputs":[{"internalType":"string","name":"referralId","type":"string"},{"internalType":"string","name":"referrerId","type":"string"},{"internalType":"address","name":"referrer","type":"address"},{"internalType":"uint256","name":"referralBalance","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"referralRewards","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"referredBy","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"string","name":"referralId","type":"string"}],"name":"setReferralById","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"string","name":"referralId","type":"string"}],"name":"setReferralId","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"string","name":"str","type":"string"},{"internalType":"uint256","name":"startIndex","type":"uint256"},{"internalType":"uint256","name":"endIndex","type":"uint256"}],"name":"substring","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"pure","type":"function"},{"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"},{"internalType":"uint256","name":"","type":"uint256"}],"name":"transfer","outputs":[],"stateMutability":"pure","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"},{"internalType":"uint256","name":"","type":"uint256"}],"name":"userBets","outputs":[{"internalType":"address","name":"user","type":"address"},{"internalType":"string","name":"number","type":"string"},{"internalType":"uint256","name":"cost","type":"uint256"},{"internalType":"uint256","name":"reward","type":"uint256"},{"internalType":"uint256","name":"timestamp","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"string","name":"","type":"string"}],"name":"userByReferralId","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"}];
     const costPerBet = 1;
@@ -647,8 +629,7 @@
     let checkInHistoryOffset = 0;
     const checkInBatchSize = 10;
     let totalCheckInCount = 0;
-
-    // Cache untuk data statis dan event
+    
     const cache = {
       decimals: null,
       symbol: null,
@@ -656,11 +637,9 @@
       checkInEvents: {},
     };
 
-    // Durasi validitas koneksi (7 hari)
     const CONNECTION_VALIDITY = 7 * 24 * 60 * 60 * 1000;
     const BASE_URL = "https://beta.faylotto.xyz";
 
-    // Fungsi utilitas
     const generateUID = () => 'uid_' + Math.random().toString(36).substr(2, 9);
 
     const setLoading = (elementId, isLoading) => {
@@ -687,7 +666,6 @@
       };
     };
 
-    // Inisialisasi Web3
     const initWeb3 = async (forceConnect = false, retries = 3, delay = 3000) => {
   if (!window.ethereum) {
     alert("MetaMask is not installed. Please install MetaMask to use this DApp.");
@@ -699,13 +677,11 @@
       console.log(`Attempting to initialize Web3 (attempt ${attempt}/${retries})`);
       web3 = new Web3(window.ethereum);
 
-      // Periksa status MetaMask
       const isMetaMaskLocked = await window.ethereum.request({ method: "eth_accounts" });
       if (isMetaMaskLocked.length === 0 && forceConnect) {
         console.log("MetaMask is locked or no accounts available");
       }
 
-      // Pastikan jaringan Base Sepolia
       const chainId = await web3.eth.getChainId();
       const sepoliaBaseTestnetChainId = 84532;
       if (chainId !== sepoliaBaseTestnetChainId) {
@@ -809,7 +785,6 @@
   try {
     const currentReferralId = await contract.methods.referralIdOf(userAccount).call();
 
-    // Periksa apakah user belum punya referral ID
     const hasNoReferralId = !currentReferralId || currentReferralId === "0" || currentReferralId === "0x0" || currentReferralId === "0x0000000000000000000000000000000000000000";
 
     if (hasNoReferralId) {
@@ -817,7 +792,6 @@
 
       let tx;
       try {
-        // Coba gunakan dynamic fee (EIP-1559)
         const priorityFee = await web3.eth.getMaxPriorityFeePerGas();
         const latestBlock = await web3.eth.getBlock("pending");
         const baseFee = latestBlock.baseFeePerGas;
@@ -870,7 +844,6 @@
         let tx;
 
         try {
-          // Dynamic fee (EIP-1559)
           const priorityFee = await web3.eth.getMaxPriorityFeePerGas();
           const latestBlock = await web3.eth.getBlock('pending');
           const baseFee = latestBlock.baseFeePerGas;
@@ -906,7 +879,6 @@
   }
 };
 
-    // Periksa koneksi tersimpan
     const checkStoredConnection = () => {
       const connection = localStorage.getItem("walletConnection");
       if (!connection) return false;
@@ -925,7 +897,6 @@
       }
     };
 
-    // Simpan koneksi
     const storeConnection = (account) => {
       localStorage.setItem("walletConnection", JSON.stringify({
         account,
@@ -933,7 +904,6 @@
       }));
     };
 
-    // Putuskan koneksi
     const disconnectWallet = () => {
       userAccount = null;
       localStorage.removeItem("walletConnection");
@@ -952,7 +922,6 @@
       });
     };
 
-    // Perbarui UI wallet
     const updateWalletUI = (isConnected) => {
       const walletButton = document.getElementById("walletButton");
       walletButton.innerText = isConnected ? "Disconnect Wallet" : "Connect Wallet";
@@ -967,7 +936,6 @@
       toggleSectionsVisibility(isConnected);
     };
 
-    // Ambil event PlaceBet
     const fetchBetEvents = async (user = null, fromBlock = null) => {
       try {
         const latestBlock = await web3.eth.getBlockNumber();
@@ -997,7 +965,6 @@
       }
     };
 
-    // Ambil event CheckInLogCreated sebagai cadangan
     const fetchCheckInEvents = async (user, fromBlock = null) => {
       try {
         const latestBlock = await web3.eth.getBlockNumber();
@@ -1024,7 +991,6 @@
       }
     };
 
-    // Load data kritis dengan retry
     const loadCriticalData = async (retries = 5, delay = 2000) => {
       if (!userAccount) return;
       for (let attempt = 1; attempt <= retries; attempt++) {
@@ -1070,8 +1036,7 @@
         }
       }
     };
-
-    // Load daftar referee dengan pagination
+    
 const loadRefereeList = async () => {
   if (!userAccount) return;
   setLoading("refereeList", true);
@@ -1128,7 +1093,7 @@ const loadRefereeList = async () => {
     const renderPagination = () => {
       pagination.innerHTML = "";
 
-      if (totalPages <= 1) return; // Tidak perlu pagination kalau cuma 1 halaman
+      if (totalPages <= 1) return;
 
       const createButton = (content, disabled, onClick, isImage = false) => {
   const btn = document.createElement("button");
@@ -1142,7 +1107,7 @@ const loadRefereeList = async () => {
 
   if (isImage) {
     const img = document.createElement("img");
-    img.src = content; // kalau gambar, 'content' itu URL PNG
+    img.src = content;
     img.style.width = "16px";
     img.style.height = "16px";
     btn.appendChild(img);
@@ -1162,7 +1127,6 @@ const loadRefereeList = async () => {
   renderPage(currentPage);
 }, true);
 
-      // Numbered pages
       if (totalPages <= 5) {
         for (let i = 1; i <= totalPages; i++) {
           createButton(i, currentPage === i, () => {
@@ -1171,7 +1135,6 @@ const loadRefereeList = async () => {
           });
         }
       } else {
-        // If banyak halaman, pakai pola: 1 2 3 ... last
         if (currentPage <= 3) {
           for (let i = 1; i <= 3; i++) {
             createButton(i, currentPage === i, () => {
@@ -1241,7 +1204,6 @@ const loadRefereeList = async () => {
 }, true);
     };
 
-    // Pertama kali load
     renderPage(currentPage);
 
     console.log("Referee list loaded with pagination");
@@ -1253,7 +1215,6 @@ const loadRefereeList = async () => {
   }
 };
 
-    // Check-In dengan konfirmasi transaksi
     const checkIn = async () => {
   if (!userAccount) {
     alert("Please connect your wallet first.");
@@ -1271,7 +1232,6 @@ const loadRefereeList = async () => {
     let tx;
 
     try {
-      // Coba ambil EIP-1559 fees
       const priorityFee = await web3.eth.getMaxPriorityFeePerGas();
       const latestBlock = await web3.eth.getBlock('pending');
       const baseFee = latestBlock.baseFeePerGas;
@@ -1283,7 +1243,6 @@ const loadRefereeList = async () => {
         maxFeePerGas: web3.utils.fromWei(maxFeePerGas, 'gwei')
       });
 
-      // Kirim transaksi dengan EIP-1559
       tx = await contract.methods.checkIn().send({
         from: userAccount,
         maxFeePerGas,
@@ -1293,7 +1252,6 @@ const loadRefereeList = async () => {
     } catch (gasError) {
       console.warn("EIP-1559 failed or unsupported, retrying with legacy gas...");
       
-      // Fallback: Kirim transaksi dengan gas legacy (gasPrice)
       const gasPrice = await web3.eth.getGasPrice();
 
       tx = await contract.methods.checkIn().send({
@@ -1306,7 +1264,6 @@ const loadRefereeList = async () => {
     console.log("Check-in transaction sent, hash:", tx.transactionHash);
     statusEl.innerHTML = "<center><small style='color:#aaffaa;'>Transaction sent. Waiting for confirmation...</small></center>";
 
-    // Polling untuk receipt
     const maxAttempts = 10;
     let attempt = 0;
     let receipt = null;
@@ -1345,7 +1302,6 @@ const loadRefereeList = async () => {
   }
 };
 
-    // Load Check-In History with Pagination
 const loadCheckInHistory = async (page = 1) => {
   if (!userAccount) return;
   setLoading("checkInHistory", true);
@@ -1377,7 +1333,7 @@ const loadCheckInHistory = async (page = 1) => {
         li.className = "py-2";
         li.innerHTML = `<small>
            ID: <span style="color: #00bfff;">${log.dayUTC}</span><br>
-           Reward: <span style="color: #32cd32;">${(log.reward / 10 ** cache.decimals).toFixed(2)} Lpoint</span><br>
+           Reward: <span style="color: #32cd32;">${(log.reward / 10 ** cache.decimals).toFixed(2)} Point</span><br>
            Time: <span style="color: #ffa500;">${date}</span><br>
         </small><hr style="background-color: #333333; height: 1px; border: none;">`;
         historyList.appendChild(li);
@@ -1394,13 +1350,12 @@ const loadCheckInHistory = async (page = 1) => {
   }
 };
 
-// Render Pagination Buttons
 function renderCheckInPagination(currentPage) {
   const pagination = document.getElementById("checkInPagination");
   pagination.innerHTML = "";
 
   const totalPages = Math.ceil(totalCheckInCount / checkInBatchSize);
-  if (totalPages <= 1) return; // Tidak perlu pagination kalau cuma 1 halaman
+  if (totalPages <= 1) return;
 
   const prevButton = document.createElement("button");
   prevButton.innerHTML = "&lt;";
@@ -1425,7 +1380,6 @@ function renderCheckInPagination(currentPage) {
   pagination.appendChild(nextButton);
 }
     
-    // Place Bet
     const placeBet = async () => {
   if (!userAccount) {
     alert("Please connect your wallet first.");
@@ -1441,22 +1395,18 @@ function renderCheckInPagination(currentPage) {
   const times = parseInt(timesInput.value);
   const payoutAmount = parseInt(payoutInput.value);
 
-  // Reset Status
   betStatus.innerHTML = "";
 
-  // Validate number
   if (!number || isNaN(number) || number.length < 2 || number.length > 4 || parseInt(number) < 0 || parseInt(number) > 9999) {
     betStatus.innerHTML = `<small style="color: red;">❌ Please enter a valid number (2-4 digits).</small>`;
     return;
   }
 
-  // Validate times
   if (!times || times < 1 || times > 5) {
     betStatus.innerHTML = `<small style="color: red;">❌ Multiplication must be between 1× and 5×.</small>`;
     return;
   }
 
-  // Validate payoutAmount
   if (payoutAmount !== 10) {
     betStatus.innerHTML = `<small style="color: red;">❌ Reward amount must be exactly 10 points.</small>`;
     return;
@@ -1470,7 +1420,6 @@ function renderCheckInPagination(currentPage) {
 
     let tx;
     try {
-      // Dynamic gas (EIP-1559)
       const priorityFee = await web3.eth.getMaxPriorityFeePerGas();
       const latestBlock = await web3.eth.getBlock('pending');
       const baseFee = latestBlock.baseFeePerGas;
@@ -1494,7 +1443,6 @@ function renderCheckInPagination(currentPage) {
       });
     }
 
-    // Success
     betStatus.innerHTML = `<small style="color: #00ff14;">✅ Submit Ticket Successfully!</small>`;
     numberInput.value = "";
     timesInput.value = "";
@@ -1514,7 +1462,6 @@ function renderCheckInPagination(currentPage) {
   }
 };
 
-// Auto-update total cost when betTimes input changes
 document.getElementById("betTimes").addEventListener("input", () => {
   const times = parseInt(document.getElementById("betTimes").value);
   if (!isNaN(times) && times >= 1 && times <= 5) {
@@ -1524,12 +1471,10 @@ document.getElementById("betTimes").addEventListener("input", () => {
   }
 });
 
-// Auto-fix payoutAmount to always 10
 document.getElementById("payoutAmount").addEventListener("input", () => {
   document.getElementById("payoutAmount").value = "10";
 });
     
-    // Load User Bet History (Lazy)
 const loadUserBetHistory = async () => {
   if (!userAccount || isUserFetching) {
     console.log("Skipping load: No userAccount or isUserFetching");
@@ -1573,8 +1518,8 @@ const loadUserBetHistory = async () => {
         Wallet: <span style="color: #bd80ff;"><a href="https://sepolia.basescan.org/address/${bet.user}" target="_blank">${bet.user.slice(0, 21)}${bet.user.slice(-21)}</a></span><br>
         BetNumber: <span style="color: #00ff14;">${bet.number}</span><br>
         BetAmount: <span style="color: #ffcc00;">${betTimes}</span><br>
-        Cost: <span style="color: #00ff14;">${(bet.cost / 10 ** cache.decimals).toFixed(2)} Lpoints</span><br>
-        Reward: <span style="color: #6683ff;">${(bet.reward / 10 ** cache.decimals).toFixed(2)} Lpoint</span><br>
+        Cost: <span style="color: #00ff14;">${(bet.cost / 10 ** cache.decimals).toFixed(2)} Points</span><br>
+        Reward: <span style="color: #6683ff;">${(bet.reward / 10 ** cache.decimals).toFixed(2)} Point</span><br>
         InviteBy: <span style="color: #ff9900;">${referrerDisplay}</span><br>
         Time: <span style="color: #ffb833;">${date}</span><br>
       </small><hr style="background-color: #333333; height: 1px; border: none;">`;
@@ -1591,7 +1536,6 @@ const loadUserBetHistory = async () => {
   }
 };
 
-// Event Listener untuk Lazy Scroll
 const userHistoryContainer = document.getElementById("userBetHistoryContainer");
 userHistoryContainer.addEventListener("scroll", () => {
   if (userHistoryContainer.scrollTop + userHistoryContainer.clientHeight >= userHistoryContainer.scrollHeight - 10) {
@@ -1601,7 +1545,6 @@ userHistoryContainer.addEventListener("scroll", () => {
   }
 });
 
-    // Load Global Bet History
     const loadGlobalBetHistory = async () => {
       if (!userAccount || isFetching) {
         console.log("Skipping load: No userAccount or isFetching");
@@ -1640,8 +1583,8 @@ userHistoryContainer.addEventListener("scroll", () => {
             User: <span style="color: #bd80ff;"><a href="https://sepolia.basescan.org/address/${bet.user}" target="_blank">${bet.user.slice(0, 21)}${bet.user.slice(-21)}</a></span><br>
             BetNumber: <span style="color: #00ff14;">${bet.number}</span><br>
             BetAmount: <span style="color: #ffcc00;">${betTimes}</span><br>
-            Cost: <span style="color: #00ff14;">${(bet.cost / 10 ** cache.decimals).toFixed(2)} Lpoint</span><br>
-            Reward: <span style="color: #6683ff;">${(bet.reward / 10 ** cache.decimals).toFixed(2)} Lpoint</span><br>
+            Cost: <span style="color: #00ff14;">${(bet.cost / 10 ** cache.decimals).toFixed(2)} Point</span><br>
+            Reward: <span style="color: #6683ff;">${(bet.reward / 10 ** cache.decimals).toFixed(2)} Point</span><br>
             InviteBy: <span style="color: #ff9900;">${referrerDisplay}</span><br>
             Time: <span style="color: #ffb833;">${date}</span><br>
           </small><hr style="background-color: #333333; height: 1px; border: none;">`;
@@ -1760,7 +1703,6 @@ globalHistoryContainer.addEventListener("scroll", async () => {
       document.getElementById("navMenu").classList.toggle("show");
     }
 
-    // Dummy loadTokenHolders to avoid undefined error
     const loadTokenHolders = async () => {
       console.log("loadTokenHolders not implemented");
     };
