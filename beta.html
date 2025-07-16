@@ -435,7 +435,7 @@
     <a href="result" target="_blank" style="color: #00bfff;"><h3>Result Today</h3></a>
 
         <div class="lottery-balls">
-            <div class="lottery-ball">6</div>
+            <div class="lottery-ball">2</div>
             <div class="lottery-ball">2</div>
             <div class="lottery-ball">0</div>
             <div class="lottery-ball">0</div>
@@ -1254,77 +1254,134 @@ const loadRefereeList = async () => {
 
     // Check-In dengan konfirmasi transaksi
     const checkIn = async () => {
-  const statusEl = document.getElementById("checkInStatus");
-
   if (!userAccount) {
     alert("Please connect your wallet first.");
-    statusEl.innerHTML = `<center><small style="color:red;">Wallet not connected.</small></center>`;
     return;
   }
 
-  if (!contract || !contract.methods || !contract.methods.checkIn) {
-    alert("Smart contract is not initialized correctly.");
-    statusEl.innerHTML = `<center><small style="color:red;">Contract not ready.</small></center>`;
-    return;
-  }
+  const statusEl = document.getElementById("checkInStatus");
+  const checkInButton = document.getElementById("checkIn");
+  const checkInButtonText = document.getElementById("checkInButtonText");
+  const loadingEl = document.getElementById("checkInLoading");
 
-  if (!contract.options.address) {
-    alert("Contract address missing.");
-    return;
-  }
-
-  statusEl.innerHTML = `<center><small>Processing check-in...</small></center>`;
+  // Nonaktifkan tombol dan tampilkan loading
+  checkInButton.disabled = true;
+  checkInButtonText.innerText = "Processing...";
+  loadingEl.style.display = "block";
+  statusEl.innerHTML = "<center><small>Processing check-in...</small></center>";
 
   try {
-    // Simulasi terlebih dahulu, gratis dan tanpa gas
-    await contract.methods.checkIn().call({ from: userAccount });
-
-    // Ambil gas price (legacy)
-    const gasPrice = await web3.eth.getGasPrice();
-
-    const tx = await contract.methods.checkIn().send({
-      from: userAccount,
-      gas: 200000,
-      gasPrice
-    });
-
-    // Cek receipt-nya
-    const receipt = await web3.eth.getTransactionReceipt(tx.transactionHash);
-
-    if (!receipt || !receipt.status) {
-      throw new Error("Transaction failed or not confirmed.");
+    // Periksa jaringan (Base Sepolia chain ID: 84532)
+    const networkId = await web3.eth.net.getId();
+    if (networkId !== 84532) {
+      throw new Error("Please switch to Base Sepolia network");
     }
 
-    console.log("Check-in success:", receipt);
-    statusEl.innerHTML = `<center><small style='color:#00ff14;'>Check-in successful! You earned 1 Point.</small></center>`;
+    console.log("Initiating check-in transaction");
+    console.log("User Account:", userAccount);
+    console.log("Contract Address:", contract.options.address);
 
+    // Periksa apakah user sudah check-in hari ini
+    const currentDayUTC = Math.floor(Date.now() / 1000 / 86400);
+    const lastCheckIn = await contract.methods._lastCheckIn(userAccount).call();
+    if (Number(lastCheckIn) >= currentDayUTC) {
+      throw new Error("You have already checked in today");
+    }
+
+    let tx;
+    let gasEstimate;
+
+    try {
+      // Estimasi gas dinamis
+      gasEstimate = await contract.methods.checkIn().estimateGas({ from: userAccount });
+      console.log("Estimated Gas:", gasEstimate);
+      gasEstimate = Math.floor(gasEstimate * 1.2); // Buffer 20%
+
+      // Coba EIP-1559
+      const priorityFee = await web3.eth.getMaxPriorityFeePerGas();
+      const latestBlock = await web3.eth.getBlock('pending');
+      const baseFee = latestBlock.baseFeePerGas || await web3.eth.getGasPrice(); // Fallback ke gasPrice
+      const maxFeePerGas = web3.utils.toBN(baseFee).add(web3.utils.toBN(priorityFee).muln(2));
+
+      console.log("Gas Fee Details:", {
+        baseFee: web3.utils.fromWei(baseFee, 'gwei'),
+        priorityFee: web3.utils.fromWei(priorityFee, 'gwei'),
+        maxFeePerGas: web3.utils.fromWei(maxFeePerGas, 'gwei')
+      });
+
+      tx = await contract.methods.checkIn().send({
+        from: userAccount,
+        maxFeePerGas,
+        maxPriorityFeePerGas: priorityFee,
+        gas: gasEstimate
+      });
+    } catch (gasError) {
+      console.warn("EIP
+
+-1559 failed or unsupported, retrying with legacy gas:", gasError.message);
+      
+      // Fallback ke legacy gas
+      const gasPrice = await web3.eth.getGasPrice();
+      gasEstimate = gasEstimate || (await contract.methods.checkIn().estimateGas({ from: userAccount }) * 1.2);
+      gasEstimate = Math.floor(gasEstimate);
+
+      tx = await contract.methods.checkIn().send({
+        from: userAccount,
+        gasPrice,
+        gas: gasEstimate
+      });
+    }
+
+    console.log("Check-in transaction sent, hash:", tx.transactionHash);
+    statusEl.innerHTML = "<center><small style='color:#aaffaa;'>Transaction sent. Waiting for confirmation...</small></center>";
+
+    // Polling untuk receipt
+    const maxAttempts = 15; // Tambah jumlah percobaan untuk testnet
+    let attempt = 0;
+    let receipt = null;
+
+    while (!receipt && attempt < maxAttempts) {
+      console.log(`Polling for receipt (attempt ${attempt + 1}/${maxAttempts})`);
+      receipt = await web3.eth.getTransactionReceipt(tx.transactionHash);
+      if (!receipt) {
+        await new Promise(resolve => setTimeout(resolve, 4000)); // Interval 4 detik untuk Base Sepolia
+        attempt++;
+      }
+    }
+
+    if (!receipt) throw new Error("Transaction not confirmed after multiple attempts");
+
+    console.log("Transaction confirmed:", receipt);
+    statusEl.innerHTML = "<center><small style='color:#00ff14;'>Faucet Check-in successful! You earned 1 Point!</small></center>";
+
+    await new Promise(resolve => setTimeout(resolve, 3000));
     await loadCriticalData();
     await loadCheckInHistory();
+    console.log("UI updated after check-in");
 
   } catch (error) {
-    console.error("Check-in error:", error);
+    console.error("Error checking in:", error.message, error);
 
-    let errorMessage = "Check-in failed.";
-    if (error.message.includes("already checked in")) {
+    let errorMessage = "Failed to check in faucet. Please try again.";
+    if (error.message.includes("You have already checked in today")) {
       errorMessage = "You have already checked in today.";
-    } else if (error?.data?.message) {
-      errorMessage = `Smart contract error: ${error.data.message}`;
-    } else if (error.message.includes("User denied transaction")) {
-      errorMessage = "Transaction was rejected by user.";
+    } else if (error.message.includes("Transaction not confirmed")) {
+      errorMessage = "Transaction timed out. Please check Basescan and try again.";
+    } else if (error.message.includes("insufficient funds")) {
+      errorMessage = "Insufficient funds for gas. Please add funds to your wallet.";
+    } else if (error.message.includes("revert")) {
+      errorMessage = "Transaction reverted. Please ensure you meet the check-in conditions.";
     }
 
     statusEl.innerHTML = `<center><small style="color:red;">${errorMessage}</small></center>`;
     alert(errorMessage);
+  } finally {
+    // Aktifkan kembali tombol dan sembunyikan loading
+    checkInButton.disabled = false;
+    checkInButtonText.innerText = "Faucet 1 Point";
+    loadingEl.style.display = "none";
   }
 };
-
-// Event listener untuk tombol
-window.addEventListener("load", () => {
-  const btn = document.getElementById("checkIn");
-  if (btn) {
-    btn.addEventListener("click", checkIn);
-  }
-});
 
 
     // Load Check-In History with Pagination
